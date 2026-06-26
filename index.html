@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>A Machine-Learned Comorbidity Index</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)'], ['$', '$']] }
+};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+/>
+</head>
+
+<body>
+  <main class="container">
+
+    <!-- HERO / TOP SECTION -->
+    <section class="hero">
+      <div class="venue-pill"> ICML 2026</div>
+
+      <h1>
+        <span class="title-blue">MLCI:</span>
+        A Machine-Learned Comorbidity Index
+      </h1>
+
+      <p class="authors">
+        <a href="https://iamsulemanbaloch.github.io/">Suleman Baloch</a><sup>1</sup>
+        <a href="https://engineering.uiowa.edu/directory/kishlay-jha">Kishlay Jha</a><sup>2</sup>
+        <a href="https://cs.uiowa.edu/people/alberto-segre">Alberto Maria Segre</a><sup>1</sup>
+        <a href="https://internalmedicine.medicine.uiowa.edu/profile/philip-polgreen">Philip M. Polgreen</a><sup>3</sup>
+        <a href="https://homepage.divms.uiowa.edu/~badhikari/">Bijaya Adhikari</a><sup>1</sup>
+      </p>
+
+  
+
+      <p class="affiliations">
+        <sup>1</sup>Department of Computer Science, University of Iowa &nbsp;&nbsp;
+        <sup>2</sup>Department of Electrical and Computer Engineering, University of Iowa &nbsp;&nbsp;
+        <sup>3</sup>Department of Internal Medicine, University of Iowa
+      </p>
+
+<div class="buttons">
+
+
+
+  <a
+    class="button primary"
+    href="https://arxiv.org/abs/2606.17450v1"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <i class="fa-solid fa-file-lines"></i>
+    arXiv
+  </a>
+
+  <a
+    class="button purple"
+    href="https://arxiv.org/pdf/2606.17450v1"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <i class="fa-solid fa-file-pdf"></i>
+    PDF
+  </a>
+
+    <a
+    class="button tertiary"
+    href="https://icml.cc/virtual/2026/poster/65590"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <i class="fa-solid fa-file-lines"></i>
+    ICML
+  </a>
+
+  <a
+    class="button red"
+    href="https://icml.cc/media/icml-2026/Slides/65590_k5uCMgY.pdf"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+<i class="fa-solid fa-file-powerpoint"></i>
+    Slides
+  </a>
+
+  <a
+    class="button"
+    href="https://github.com/sbbaloch2024/A-Machine-Learned-Comorbidity-Index"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <i class="fa-brands fa-github"></i>
+    Code
+  </a>
+
+  <a class="button" href="#citation">
+  <i class="fa-solid fa-quote-right"></i>
+  BibTeX
+</a>
+
+
+    <a
+    class="button black"
+    href="https://sbbaloch2024.github.io"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    Connect with me!
+  </a>
+</div>
+      <div class="tldr">
+        <strong>TL;DR:</strong>
+        MLCI learns a single diagnosis-code-based severity score by maximizing normalized HSIC across multiple clinical outcomes, capturing nonlinear shared comorbidity risk beyond fixed clinical indices.
+      </div>
+    </section>
+
+    <!-- ABSTRACT -->
+
+    <section>
+      <h2>Abstract</h2>
+
+      <p>Traditional comorbidity scores (e.g., Charlson and
+Elixhauser) are widely used for risk adjustment
+and patient stratification, but they have two key
+limitations: (i) they are largely mortality-centric
+and do not align well with other clinical outcomes, and (ii) their linear, rule-based structure
+cannot capture nonlinear, outcome-specific risk
+relationships. We propose a Machine-Learned
+Comorbidity Index (MLCI) that maps diagnosis
+codes to a single scalar by maximizing the normalized Hilbert–Schmidt Independence Criterion
+(nHSIC) between the learned score and multiple clinical outcomes. MLCI captures nonlinear
+risk–outcome dependence and is supported by a
+theory that characterizes when a unified, informative admission-level ordering can be achieved
+across outcomes. Empirical results on multiple benchmark electronic health record (EHR)
+datasets show that MLCI outperforms strong baselines across multiple evaluation metrics.</p>
+    </section>
+
+
+    <section>
+      <h2>Introduction</h2>
+
+      <p>
+        Traditional comorbidity scores such as Charlson and Elixhauser are widely used for risk
+        adjustment and patient stratification, but they have two key limitations.
+              <img class="teaser" src="MLCI-Figures/LimitationsOfTraditionalComorbidityIndices/image.png" alt="MLCI method overview" />
+
+
+
+      </p>
+
+      <p>
+        We propose a <strong>Machine-Learned Comorbidity Index</strong> called <strong>MLCI</strong>,
+        which maps diagnosis codes to a single scalar severity score. MLCI is trained by maximizing
+        normalized Hilbert–Schmidt Independence Criterion across multiple clinical outcomes. This
+        enables the learned score to capture nonlinear dependence between diagnosis-derived severity
+        and outcomes while preserving the practical simplicity of a one-dimensional clinical index.
+      </p>
+<img
+  class="teaser"
+  src="MLCI-Figures/MLCI-Introduction/MLCI.png"
+  alt="MLCI method overview"
+  style="width: 65%; max-width: 1000px; height: auto; display: block; margin: 0 auto;"
+/>
+
+      <p>
+        Experiments on MIMIC-III and MIMIC-IV show that MLCI outperforms traditional clinical
+        indices and strong machine-learning baselines across multiple dependence metrics.
+      </p>
+    </section>
+
+    <!-- METHOD FIGURE -->
+    <section>
+      <h2>Methodology</h2>
+
+      <img class="teaser" src="MLCI-Figures/mainFigure/mainFigure.png" alt="MLCI method overview" />
+
+      <p class="caption">
+        MLCI learns a shared admission-level severity score from diagnosis codes using
+        multi-outcome normalized HSIC.
+      </p>
+
+
+      <p>
+        Each hospital admission is represented as a variable-length collection of ICD diagnosis-code
+        prefix tokens. These diagnosis tokens are passed through a permutation-invariant DeepSets-style
+        encoder. The encoder aggregates diagnosis-code embeddings using mean and max pooling, then maps
+        the resulting admission representation to a single scalar score.
+      </p>
+
+      <p>
+        Instead of training the score with a single binary outcome loss, MLCI maximizes a weighted sum
+        of normalized HSIC values between the learned scalar score and multiple binary clinical outcomes.
+        This objective encourages the learned score to capture shared outcome-relevant severity structure
+        while allowing each outcome to have its own nonlinear relationship with severity.
+      </p>
+    </section>
+
+    <section>
+              <h2>Theory</h2>
+              <p> The theory assumes each admission has an unobserved latent severity value \(z_i\), which orders admissions from low to high severity. 
+                The oracle severity score \(r_i\) preserves this ordering: \(z_i < z_j \Rightarrow r_i \le r_j\). Each clinical outcome depends on latent severity through its own outcome-specific response function, 
+                \(\Pr(y_i^{(t)} = 1 \mid z_i) = f_t(z_i)\). The goal is to recover a shared admission-level ordering where higher scores correspond to greater latent disease burden. In practice, \(z_i\) and \(r_i\) are unobserved, 
+                so MLCI learns \(s_i = s_\theta(X_i)\), where \(X_i\) denotes the diagnosis codes for admission \(i\), as a data-driven approximation to this oracle ordering. 
+<img
+  class="teaser"
+  src="MLCI-Figures/theoryFigures/TheoryIntroduction/OracleNotation.png"
+  alt="MLCI method overview"
+  style="width: 45%; max-width: 550px;"
+/>
+                To study shared structure across outcomes, we start 
+                with the binary outcome labels for each admission. For each task, we center the binary label vector and stack the centered vectors across tasks to capture how admissions behave across outcomes. From this stacked matrix, 
+                we form an admission-level alignment matrix. If this alignment matrix is approximately rank one, its leading direction represents a shared admission-level severity signal across outcomes.
+</p>
+      <img class="teaser" src="MLCI-Figures/PosterFigure1.png" alt="Theory Figure" />
+
+
+
+    </section>
+
+    <!-- RESULTS -->
+    <section>
+      <h2>Experiments</h2>
+      <p> We evaluate MLCI on MIMIC-IV and MIMIC-III using four outcomes: in-hospital mortality, 30-day mortality, length of stay, and ICU transfer. We evaluate our MLCI using two statistical dependence measures, namely Distance correlation and mutual information.  As for Dcorr results, MLCI learns a single scalar score that carries strong information about multiple outcomes, especially mortality and length of stay. Mutual information results show the same overall trend as distance correlation. </p>
+      <img class="teaser" src="MLCI-Figures/Experiments/DCorr Results.png" alt="MLCI method overview" />
+      <img class="teaser" src="MLCI-Figures/Experiments/MI-Results.png" alt="MLCI method overview" />
+
+      <div class="cards">
+        <div class="card">
+          <h3>Strong mortality signal</h3>
+          <p>
+            MLCI achieves the strongest dependence with in-hospital mortality and 30-day mortality on
+            both MIMIC-III and MIMIC-IV.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Better than fixed indices</h3>
+          <p>
+            MLCI outperforms Charlson and Elixhauser comorbidity indices across multiple outcomes and
+            dependence metrics.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Single scalar score</h3>
+          <p>
+            The model preserves the usability of traditional clinical indices by producing one scalar
+            diagnosis-based severity score.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- THEORY -->
+    <section>
+<h2>Theory Diagnostics</h2>
+
+<p>
+We evaluate theory-motivated diagnostics to test whether the outcomes share a common admission-level severity structure. Specifically, we check whether the stacked centered outcome profiles are approximately rank one, which would indicate that a dominant shared direction explains a substantial part of the multi-outcome label structure. We also scan for a monotone threshold split along this shared direction to determine whether the theory identifies a compact high-severity subgroup across outcomes.
+</p>
+
+
+<img class="teaser" src="MLCI-Figures/Experiments/TheoryDiagnotics.png" alt="Theory diagnostics for MLCI" />
+<p>
+The results show moderate rank-one alignment on both MIMIC-IV and MIMIC-III, suggesting that the clinical outcomes contain a meaningful shared severity signal while still retaining task-specific variation. The threshold diagnostics further show that the shared direction identifies small upper-tail high-severity groups, supporting the interpretation that MLCI learns a clinically useful ordering and cutoff rather than only improving outcome-specific prediction.
+</p>
+    </section>
+
+    <!-- CITATION -->
+<section id="citation">
+  <div class="citation-header">
+    <h2>Citation</h2>
+
+    <button class="copy-button" id="copy-bibtex" type="button">
+      <i class="fa-regular fa-copy"></i>
+      Copy BibTeX
+    </button>
+  </div>
+
+  <pre><code id="bibtex-code">@inproceedings{
+  baloch2026a,
+  title={A Machine-Learned Comorbidity Index},
+  author={Suleman Baloch and Kishlay Jha and Alberto Maria Segre and Philip M. Polgreen and Bijaya Adhikari},
+  booktitle={Forty-third International Conference on Machine Learning},
+  year={2026},
+  url={https://openreview.net/forum?id=C6ZTjSXbz7}
+}</code></pre>
+</section>
+
+  </main>
+</body>
+</html>
